@@ -1,1 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forma Studio — Digital Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:   #1c1a17;
+  --paper: #f4f0e8;
+  --warm:  #e8e0d0;
+  --rule:  #c8bfaf;
+  --rust:  #b04a2a;
+  --rust2: #8c3a1f;
+  --sand:  #d4c9b4;
+  --muted: #7a7060;
+  --light: #f9f6f0;
+}
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  cursor: none;
+}
+.cursor {
+  position: fixed; z-index: 9999; pointer-events: none;
+  width: 10px; height: 10px;
+  border: 1px solid var(--rust); border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s, height 0.25s, background 0.25s;
+  mix-blend-mode: multiply;
+}
+.cursor.hover { width: 36px; height: 36px; background: rgba(176,74,42,0.08); }
+@media (pointer: coarse) { .cursor { display: none; } body { cursor: auto; } }
 
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.4rem 3.5rem;
+  background: rgba(244,240,232,0.93);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.wordmark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--ink); text-decoration: none;
+}
+.wordmark em { font-style: italic; font-weight: 300; color: var(--rust); }
+nav ul { list-style: none; display: flex; gap: 2.8rem; }
+nav a {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+nav a:hover { color: var(--rust); }
+.nav-cta {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-cta:hover { color: var(--rust); border-color: var(--rust); }
+
+.hero {
+  min-height: 100vh;
+  padding: 12rem 3.5rem 6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-index {
+  font-family: 'Newsreader', serif; font-style: italic;
+  font-size: 0.72rem; color: var(--muted);
+  letter-spacing: 0.06em; margin-bottom: 2.5rem;
+}
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.4rem, 6vw, 6.5rem);
+  font-weight: 300; line-height: 1.04;
+  letter-spacing: -0.01em; margin-bottom: 2.5rem;
+}
+h1 em { font-style: italic; color: var(--rust); }
+.hero-desc {
+  font-size: 0.95rem; color: var(--muted);
+  max-width: 38ch; line-height: 1.75; margin-bottom: 3rem;
+}
+.btn-primary {
+  display: inline-block; background: var(--ink); color: var(--paper);
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  text-decoration: none; padding: 1rem 2.2rem; transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--rust); }
+.btn-ghost {
+  display: inline-block; color: var(--ink);
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  text-decoration: none; padding: 1rem 0;
+  border-bottom: 1px solid var(--rule); margin-left: 2rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { color: var(--rust); border-color: var(--rust); }
+.hero-right { display: flex; flex-direction: column; padding-bottom: 0.4rem; }
+.hero-stat-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 1.4rem 0; border-bottom: 1px solid var(--rule);
+}
+.hero-stat-row:first-child { border-top: 1px solid var(--rule); }
+.stat-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem; font-weight: 300; line-height: 1;
+}
+.stat-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.stat-note { font-family: 'Newsreader', serif; font-style: italic; font-size: 0.85rem; color: var(--muted); text-align: right; }
+
+.marquee-wrap { overflow: hidden; border-bottom: 1px solid var(--rule); background: var(--warm); padding: 0.9rem 0; }
+.marquee-track { display: flex; white-space: nowrap; animation: marquee 28s linear infinite; }
+.marquee-item { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 300; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; padding: 0 2.5rem; display: inline-block; }
+.marquee-item.accent { color: var(--rust); font-style: italic; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+section { padding: 7rem 3.5rem; border-bottom: 1px solid var(--rule); }
+.section-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5rem; gap: 3rem; }
+.section-num { font-family: 'Newsreader', serif; font-style: italic; font-size: 0.72rem; color: var(--rust); letter-spacing: 0.08em; padding-top: 0.4rem; }
+h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; }
+h2 em { font-style: italic; color: var(--rust); }
+.section-aside { max-width: 34ch; font-size: 0.88rem; color: var(--muted); line-height: 1.75; flex-shrink: 0; padding-top: 0.6rem; }
+
+.service-item { display: grid; grid-template-columns: 3rem 1fr auto; gap: 2.5rem; align-items: start; padding: 2.5rem 0; border-top: 1px solid var(--rule); cursor: default; }
+.service-item:last-child { border-bottom: 1px solid var(--rule); }
+.service-item:hover .service-name { color: var(--rust); }
+.service-n { font-family: 'Newsreader', serif; font-style: italic; font-size: 0.8rem; color: var(--rule); padding-top: 0.3rem; }
+.service-name { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 400; margin-bottom: 0.7rem; transition: color 0.2s; }
+.service-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; max-width: 52ch; }
+.service-price { font-family: 'Newsreader', serif; font-style: italic; font-size: 0.85rem; color: var(--muted); text-align: right; white-space: nowrap; padding-top: 0.3rem; }
+
+.tool-section { background: var(--light); }
+.tool-inner { max-width: 780px; }
+.tool-tabs { display: flex; border-bottom: 1px solid var(--rule); margin-bottom: 3rem; }
+.tab-btn { background: none; border: none; padding: 0.9rem 1.8rem 0.9rem 0; font-family: 'Instrument Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); cursor: pointer; border-bottom: 1px solid transparent; margin-bottom: -1px; transition: color 0.2s, border-color 0.2s; }
+.tab-btn.active { color: var(--rust); border-bottom-color: var(--rust); }
+.tab-btn:hover { color: var(--ink); }
+.tool-panel { display: none; }
+.tool-panel.active { display: block; }
+.field-group { margin-bottom: 1.6rem; }
+.field-group label { display: block; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.55rem; }
+.field-group input, .field-group textarea, .field-group select {
+  width: 100%; background: var(--paper); border: 1px solid var(--rule); color: var(--ink);
+  padding: 0.8rem 1rem; font-family: 'Instrument Sans', sans-serif; font-size: 0.9rem;
+  outline: none; transition: border-color 0.2s; border-radius: 0; -webkit-appearance: none;
+}
+.field-group input:focus, .field-group textarea:focus, .field-group select:focus { border-color: var(--rust); }
+.field-group textarea { min-height: 90px; resize: vertical; }
+.field-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a7060'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+.field-group select option { background: var(--paper); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+.gen-btn { background: var(--rust); color: var(--paper); border: none; padding: 1rem 2.4rem; font-family: 'Instrument Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+.gen-btn:hover:not(:disabled) { background: var(--rust2); }
+.gen-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.output-area { display: none; margin-top: 2.5rem; border-top: 1px solid var(--rule); padding-top: 2rem; }
+.output-area.show { display: block; }
+.output-eyebrow { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+.output-text { font-family: 'Newsreader', serif; font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--ink); white-space: pre-wrap; word-wrap: break-word; padding: 2rem; background: var(--paper); border: 1px solid var(--rule); min-height: 80px; }
+.copy-link { display: inline-block; margin-top: 1.2rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 1px; background: none; border-top: none; border-left: none; border-right: none; cursor: pointer; font-family: 'Instrument Sans', sans-serif; transition: color 0.2s, border-color 0.2s; }
+.copy-link:hover { color: var(--rust); border-color: var(--rust); }
+.thinking-line { font-family: 'Newsreader', serif; font-style: italic; font-size: 0.95rem; color: var(--muted); }
+.blink { display: inline-block; animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--rule); }
+.price-col { padding: 3rem 2.5rem; border-right: 1px solid var(--rule); }
+.price-col:last-child { border-right: none; }
+.price-col.featured { background: var(--ink); color: var(--paper); }
+.price-col.featured .price-plan, .price-col.featured .price-per, .price-col.featured .feature-item { color: rgba(244,240,232,0.55); }
+.price-col.featured .price-num { color: var(--paper); }
+.price-col.featured .feature-item { border-bottom-color: rgba(244,240,232,0.1); }
+.price-col.featured .price-btn { background: var(--paper); color: var(--ink); }
+.price-col.featured .price-btn:hover { background: var(--rust); color: var(--paper); }
+.price-plan { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
+h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; margin-bottom: 1.5rem; }
+.price-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1; color: var(--ink); margin-bottom: 0.3rem; }
+.price-currency { font-size: 1.5rem; vertical-align: super; }
+.price-per { font-size: 0.8rem; color: var(--muted); margin-bottom: 2.5rem; }
+.feature-list { list-style: none; margin-bottom: 2.5rem; }
+.feature-item { font-size: 0.85rem; color: var(--muted); padding: 0.6rem 0; border-bottom: 1px solid var(--rule); display: flex; align-items: flex-start; gap: 0.8rem; }
+.feature-item::before { content: ''; display: inline-block; width: 4px; height: 4px; background: var(--rust); border-radius: 50%; margin-top: 0.55rem; flex-shrink: 0; }
+.price-btn { display: block; text-align: center; background: var(--ink); color: var(--paper); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; padding: 0.9rem 1.5rem; transition: background 0.2s, color 0.2s; }
+.price-btn:hover { background: var(--rust); color: var(--paper); }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-left p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 3rem; max-width: 40ch; }
+.contact-detail { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.7rem; }
+.contact-detail strong { display: block; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rule); margin-bottom: 0.2rem; }
+.contact-detail a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); transition: color 0.2s, border-color 0.2s; }
+.contact-detail a:hover { color: var(--rust); border-color: var(--rust); }
+.submit-btn { background: var(--ink); color: var(--paper); border: none; padding: 1rem 2.4rem; font-family: 'Instrument Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
+.submit-btn:hover { background: var(--rust); }
+.sent-note { display: none; font-family: 'Newsreader', serif; font-style: italic; font-size: 0.9rem; color: var(--muted); margin-top: 1rem; }
+.sent-note.show { display: block; }
+
+footer { padding: 2.5rem 3.5rem; display: flex; justify-content: space-between; align-items: center; background: var(--ink); color: var(--sand); gap: 1rem; flex-wrap: wrap; }
+.footer-word { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; letter-spacing: 0.1em; color: var(--sand); }
+.footer-word em { font-style: italic; color: var(--rust); }
+footer p { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--muted); }
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--sand); }
+
+@media (max-width: 860px) {
+  nav ul { display: none; }
+  nav { padding: 1rem 1.5rem; }
+  .hero { grid-template-columns: 1fr; padding: 9rem 1.5rem 4rem; gap: 3rem; }
+  section { padding: 4rem 1.5rem; }
+  .section-header { flex-direction: column; gap: 1.5rem; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .price-col { border-right: none; border-bottom: 1px solid var(--rule); }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .two-col { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+  .service-item { grid-template-columns: 2rem 1fr; gap: 1.5rem; }
+  .service-price { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a href="#" class="wordmark">Forma <em>Studio</em></a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tool">Generator</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Start a project</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-index">Warsaw, Poland &mdash; Est. 2024</p>
+    <h1>Marketing<br>that feels<br><em>human.</em></h1>
+    <p class="hero-desc">We write, manage, and grow your brand's digital presence — social media, search, advertising, and email — so you can focus on running your business.</p>
+    <a href="#tool" class="btn-primary">Try the content tool</a>
+    <a href="#pricing" class="btn-ghost">See packages</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-row">
+      <div><div class="stat-n">4</div><div class="stat-label">Channels covered</div></div>
+      <div class="stat-note">Social, Search,<br>Ads &amp; Email</div>
+    </div>
+    <div class="hero-stat-row">
+      <div><div class="stat-n">30+</div><div class="stat-label">Pieces of content monthly</div></div>
+      <div class="stat-note">On our Growth plan</div>
+    </div>
+    <div class="hero-stat-row">
+      <div><div class="stat-n">24 h</div><div class="stat-label">Response guarantee</div></div>
+      <div class="stat-note">Every message answered</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Social Media</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Copywriting</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Search Engine Optimisation</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Email Campaigns</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Brand Strategy</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Paid Advertising</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Social Media</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Copywriting</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Search Engine Optimisation</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Email Campaigns</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Brand Strategy</span><span class="marquee-item accent">&mdash;</span>
+    <span class="marquee-item">Paid Advertising</span><span class="marquee-item accent">&mdash;</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 / Services</div>
+      <h2>What we<br><em>actually do</em></h2>
+    </div>
+    <p class="section-aside">We don't offer half-measures. Each service is handled with care, consistency, and a clear strategy behind it — not templates and guesswork.</p>
+  </div>
+  <div>
+    <div class="service-item">
+      <div class="service-n">01</div>
+      <div><div class="service-name">Social Media Management</div><p class="service-desc">Daily and weekly content for Instagram, Facebook, LinkedIn, and TikTok. We write the captions, plan the calendar, respond to comments, and track what's working. Your brand gets a consistent, real voice online.</p></div>
+      <div class="service-price">from 800 zl / month</div>
+    </div>
+    <div class="service-item">
+      <div class="service-n">02</div>
+      <div><div class="service-name">Ad Copywriting</div><p class="service-desc">Google Ads, Meta campaigns, display banners. We write headlines and body copy that stop people from scrolling past and give them a reason to click. Tested, iterated, and refined over time.</p></div>
+      <div class="service-price">from 500 zl / campaign</div>
+    </div>
+    <div class="service-item">
+      <div class="service-n">03</div>
+      <div><div class="service-name">SEO &amp; Long-Form Content</div><p class="service-desc">Blog articles, landing pages, and on-page optimisation that improve how you rank in search results. We research the right keywords and write pieces that your audience actually wants to read.</p></div>
+      <div class="service-price">from 600 zl / month</div>
+    </div>
+    <div class="service-item">
+      <div class="service-n">04</div>
+      <div><div class="service-name">Email Marketing</div><p class="service-desc">Welcome sequences, promotional sends, weekly newsletters, and re-engagement flows. We write the copy, set up the automation, and make sure your subscribers hear from you in a way that doesn't feel like spam.</p></div>
+      <div class="service-price">from 400 zl / month</div>
+    </div>
+  </div>
+</section>
+
+<section id="tool" class="tool-section">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 / Content Tool</div>
+      <h2>Generate a piece<br>of content <em>right now</em></h2>
+    </div>
+    <p class="section-aside">This is a small window into what we produce for clients every day. Enter your details and see what comes back. No account needed.</p>
+  </div>
+  <div class="tool-inner">
+    <div class="tool-tabs">
+      <button class="tab-btn active" onclick="switchTab('social',this)">Social post</button>
+      <button class="tab-btn" onclick="switchTab('ad',this)">Ad copy</button>
+      <button class="tab-btn" onclick="switchTab('seo',this)">SEO article</button>
+      <button class="tab-btn" onclick="switchTab('email',this)">Email</button>
+    </div>
+
+    <div class="tool-panel active" id="panel-social">
+      <div class="two-col">
+        <div class="field-group"><label>Business or brand name</label><input type="text" id="s-brand" placeholder="e.g. Kowalski Piekarnia"></div>
+        <div class="field-group"><label>Platform</label><select id="s-platform"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>TikTok</option></select></div>
+      </div>
+      <div class="two-col">
+        <div class="field-group"><label>Topic or product to promote</label><input type="text" id="s-topic" placeholder="e.g. New sourdough loaf launch"></div>
+        <div class="field-group"><label>Tone of voice</label><select id="s-tone"><option>Warm and friendly</option><option>Professional</option><option>Witty and light</option><option>Refined and premium</option></select></div>
+      </div>
+      <button class="gen-btn" onclick="generate('social')">Generate post</button>
+    </div>
+
+    <div class="tool-panel" id="panel-ad">
+      <div class="two-col">
+        <div class="field-group"><label>Brand or business</label><input type="text" id="a-brand" placeholder="e.g. FitZone Gym"></div>
+        <div class="field-group"><label>Ad platform</label><select id="a-platform"><option>Google Ads</option><option>Facebook and Instagram</option><option>Display banner</option></select></div>
+      </div>
+      <div class="field-group"><label>What are you promoting?</label><input type="text" id="a-product" placeholder="e.g. 30-day fitness membership, first month free"></div>
+      <div class="field-group"><label>Who is this for?</label><input type="text" id="a-audience" placeholder="e.g. Polish women aged 28–45 who want to get back in shape"></div>
+      <button class="gen-btn" onclick="generate('ad')">Generate ad copy</button>
+    </div>
+
+    <div class="tool-panel" id="panel-seo">
+      <div class="two-col">
+        <div class="field-group"><label>Website or brand</label><input type="text" id="e-brand" placeholder="e.g. LegalHero.pl"></div>
+        <div class="field-group"><label>Keyword to target</label><input type="text" id="e-keyword" placeholder="e.g. prawnik Warszawa"></div>
+      </div>
+      <div class="field-group"><label>Article topic</label><input type="text" id="e-topic" placeholder="e.g. How to write a legally binding contract in Poland"></div>
+      <button class="gen-btn" onclick="generate('seo')">Generate article outline</button>
+    </div>
+
+    <div class="tool-panel" id="panel-email">
+      <div class="two-col">
+        <div class="field-group"><label>Brand name</label><input type="text" id="m-brand" placeholder="e.g. GreenBox.pl"></div>
+        <div class="field-group"><label>Type of email</label><select id="m-type"><option>Welcome email</option><option>Promotional offer</option><option>Newsletter</option><option>Re-engagement</option><option>Abandoned cart</option></select></div>
+      </div>
+      <div class="field-group"><label>Main message or offer</label><input type="text" id="m-offer" placeholder="e.g. 20% off first order, valid until Friday"></div>
+      <button class="gen-btn" onclick="generate('email')">Generate email</button>
+    </div>
+
+    <div class="output-area" id="output-area">
+      <div class="output-eyebrow" id="output-eyebrow">Generated content</div>
+      <div class="output-text" id="output-text"></div>
+      <button class="copy-link" onclick="copyOutput()">Copy to clipboard</button>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 / Pricing</div>
+      <h2>Honest prices,<br><em>clear scope</em></h2>
+    </div>
+    <p class="section-aside">No surprise invoices. No lock-in after the first month. Every package starts with a strategy call so we actually understand your business before we write a word.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-col">
+      <div class="price-plan">Starter</div>
+      <div class="price-num"><span class="price-currency">zl</span>999</div>
+      <div class="price-per">per month</div>
+      <ul class="feature-list">
+        <li class="feature-item">Two social platforms managed</li>
+        <li class="feature-item">12 posts per month</li>
+        <li class="feature-item">One ad campaign, copy only</li>
+        <li class="feature-item">Monthly performance report</li>
+        <li class="feature-item">Email support</li>
+      </ul>
+      <a href="#contact" class="price-btn">Get started</a>
+    </div>
+    <div class="price-col featured">
+      <div class="price-plan">Growth</div>
+      <div class="price-num"><span class="price-currency">zl</span>2499</div>
+      <div class="price-per">per month</div>
+      <ul class="feature-list">
+        <li class="feature-item">Four social platforms managed</li>
+        <li class="feature-item">30 posts and stories per month</li>
+        <li class="feature-item">Three ad campaigns with copy</li>
+        <li class="feature-item">SEO blog — four articles per month</li>
+        <li class="feature-item">Weekly email newsletter</li>
+        <li class="feature-item">Monthly strategy call</li>
+      </ul>
+      <a href="#contact" class="price-btn">Get started</a>
+    </div>
+    <div class="price-col">
+      <div class="price-plan">Full Service</div>
+      <div class="price-num"><span class="price-currency">zl</span>4999</div>
+      <div class="price-per">per month</div>
+      <ul class="feature-list">
+        <li class="feature-item">All platforms, no content limit</li>
+        <li class="feature-item">Ad management including spend</li>
+        <li class="feature-item">SEO and eight articles per month</li>
+        <li class="feature-item">Full email automation build</li>
+        <li class="feature-item">Dedicated account manager</li>
+        <li class="feature-item">Weekly calls and reporting</li>
+      </ul>
+      <a href="#contact" class="price-btn">Get started</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 / Contact</div>
+      <h2>Tell us about<br>your <em>business</em></h2>
+    </div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <p>Fill in the form and we'll come back to you within 24 hours — with a proper response, not an automated one. We'll ask a few follow-up questions and then put together a proposal that fits your situation.</p>
+      <div class="contact-detail"><strong>Email</strong><a href="mailto:hello@formastudio.pl">hello@formastudio.pl</a></div>
+      <div class="contact-detail"><strong>Phone</strong><a href="tel:+48000000000">+48 000 000 000</a></div>
+      <div class="contact-detail"><strong>Based in</strong>Poland, working remotely across Europe</div>
+    </div>
+    <div>
+      <div class="field-group"><label>Your name</label><input type="text" id="c-name" placeholder="Jan Kowalski"></div>
+      <div class="field-group"><label>Email address</label><input type="email" id="c-email" placeholder="jan@twojafirma.pl"></div>
+      <div class="field-group"><label>Business name</label><input type="text" id="c-biz" placeholder="Twoja Firma Sp. z o.o."></div>
+      <div class="field-group"><label>What do you need help with?</label><textarea id="c-msg" placeholder="Tell us a bit about your business and what you're looking to achieve online."></textarea></div>
+      <button class="submit-btn" onclick="submitForm()">Send message</button>
+      <p class="sent-note" id="sent-note">Thanks. We'll be in touch within 24 hours.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-word">Forma <em>Studio</em></div>
+  <p>Digital marketing, done carefully. &copy; 2026</p>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#tool">Tool</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.getElementById('output-area').classList.remove('show');
+}
+
+function showThinking(label) {
+  document.getElementById('output-eyebrow').textContent = label;
+  document.getElementById('output-text').innerHTML = '<span class="thinking-line">Writing<span class="blink">_</span></span>';
+  document.getElementById('output-area').classList.add('show');
+  document.getElementById('output-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+async function generate(type) {
+  document.querySelectorAll('.gen-btn').forEach(b => b.disabled = true);
+  let prompt = '', label = '';
+
+  if (type === 'social') {
+    const brand = document.getElementById('s-brand').value || 'my business';
+    const plat  = document.getElementById('s-platform').value;
+    const topic = document.getElementById('s-topic').value || 'a new product';
+    const tone  = document.getElementById('s-tone').value;
+    label  = plat + ' post — ' + brand;
+    prompt = `Write a ${plat} post for "${brand}" about: "${topic}". Tone: ${tone}. Write like a real person at the brand would — not a marketing robot. Include hook, body, call to action, and hashtags. No filler or over-the-top enthusiasm.`;
+
+  } else if (type === 'ad') {
+    const brand = document.getElementById('a-brand').value || 'my business';
+    const plat  = document.getElementById('a-platform').value;
+    const prod  = document.getElementById('a-product').value || 'our product';
+    const aud   = document.getElementById('a-audience').value || 'potential customers';
+    label  = plat + ' ad — ' + brand;
+    prompt = `Write ${plat} ad copy for "${brand}". Offer: "${prod}". Audience: "${aud}". Give 3 headline options, 2 body copy variations, and a CTA. No clichés, no hype. Sharp and specific.`;
+
+  } else if (type === 'seo') {
+    const brand   = document.getElementById('e-brand').value   || 'our site';
+    const keyword = document.getElementById('e-keyword').value || 'marketing';
+    const topic   = document.getElementById('e-topic').value   || 'a helpful guide';
+    label  = 'SEO outline — ' + keyword;
+    prompt = `Create an SEO article outline for "${brand}" targeting keyword: "${keyword}". Topic: "${topic}". Include: SEO title, meta description (under 155 chars), H2/H3 outline with notes per section, intro paragraph, word count guide. Write as a working editorial brief, not a content farm outline.`;
+
+  } else {
+    const brand = document.getElementById('m-brand').value || 'our brand';
+    const etype = document.getElementById('m-type').value;
+    const offer = document.getElementById('m-offer').value || 'our latest offer';
+    label  = etype + ' — ' + brand;
+    prompt = `Write a ${etype} email for "${brand}". Key message: "${offer}". Include subject line, preview text, full email body, and CTA. Sound like a real person, not a press release. Add a P.S. if it adds value.`;
+  }
+
+  showThinking(label);
+
+  try {
+    const res  = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+    const data = await res.json();
+    document.getElementById('output-eyebrow').textContent = label;
+    document.getElementById('output-text').textContent = data.text || data.error || 'Something went wrong.';
+  } catch (err) {
+    document.getElementById('output-text').textContent = 'Could not connect. Please try again.';
+  } finally {
+    document.querySelectorAll('.gen-btn').forEach(b => b.disabled = false);
+  }
+}
+
+function copyOutput() {
+  const text = document.getElementById('output-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-link');
+    btn.textContent = 'Copied';
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 2000);
+  });
+}
+
+function submitForm() {
+  const name  = document.getElementById('c-name').value;
+  const email = document.getElementById('c-email').value;
+  if (!name || !email) { alert('Please fill in your name and email address.'); return; }
+  document.getElementById('sent-note').classList.add('show');
+  ['c-name','c-email','c-biz','c-msg'].forEach(id => document.getElementById(id).value = '');
+}
+</script>
+</body>
+</html>
