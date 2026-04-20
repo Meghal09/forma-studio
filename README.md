@@ -1,69 +1,171 @@
-# Forma Studio — Digital Marketing Agency
+FORMA Marketing Intelligence Division (FMID)
 
-## How to deploy (Cloudflare Workers via GitHub)
-
-This is a **Cloudflare Worker** project — NOT a Pages project.
-The AI generator runs on Cloudflare's free AI models, so no API key is needed.
+GitHub‑Ready Documentation
 
 ---
 
-### Step 1 — Upload to GitHub
+🚀 FORMA Marketing Intelligence Division (FMID)
 
-1. Create a new GitHub repository (e.g. `forma-studio`)
-2. Upload ALL files keeping the folder structure:
-   ```
-   forma-studio/
-   ├── public/
-   │   └── index.html
-   ├── worker.js
-   ├── wrangler.toml
-   └── README.md
-   ```
+The FORMA Marketing Intelligence Division is a fully modular, AI‑driven marketing system designed to automate:
 
----
+• Content creation
+• Social media growth
+• Lead generation
+• Funnel building
+• SEO
+• Email marketing
+• Analytics
+• Paid ads
+• Community management
 
-### Step 2 — Deploy via Cloudflare Workers
 
-1. Go to **dash.cloudflare.com**
-2. Click **Workers & Pages** in the left sidebar
-3. Click **Create** → **Worker**
-4. Click **Connect to Git** (or use the dashboard editor)
-5. Select your GitHub repository
-6. Build settings:
-   - **Build command:** `npx wrangler deploy`
-   - **Build output:** (leave blank)
-7. Click **Save and Deploy**
-
-### Alternative — Deploy manually in 2 minutes
-
-1. Go to **dash.cloudflare.com** → **Workers & Pages** → **Create** → **Worker**
-2. Click **Edit code**
-3. Paste the contents of `worker.js` into the editor
-4. Click **Save and Deploy**
-5. Then go to the Worker → **Settings** → **Bindings**
-6. Add binding: Type = **AI**, Variable name = **AI**
-7. Save — done.
+This division powers your AI Marketing SaaS, your agency, and your personal brand, using a structured hierarchy of AI agents and scalable systems.
 
 ---
 
-### Enable AI binding (required for the content generator)
+🎯 Purpose of This Division
 
-In your Worker settings:
-- Go to **Settings** → **Bindings**
-- Click **Add binding**
-- Type: **Workers AI**
-- Variable name: `AI`
-- Save
+The FMID exists to:
 
-This uses Cloudflare's free AI tier (no credit card needed for basic usage).
+• Automate 80% of marketing operations
+• Produce content at scale
+• Generate leads daily
+• Convert leads into paying users
+• Maintain consistent brand presence
+• Support your SaaS and agency growth
+• Provide a repeatable, documented marketing engine
+
+
+This README serves as the master index for the entire marketing system.
 
 ---
 
-### Customise before going live
+🧠 AI ORGANIZATIONAL HIERARCHY
 
-In `public/index.html`, search and replace:
-- `Forma Studio` → your agency name
-- `hello@formastudio.pl` → your email
-- `+48 000 000 000` → your phone number
-- `Warsaw, Poland` → your location
-- Prices (800 zl, 999 zl etc.) → your actual prices
+Director (PROMETHEUS-MK)
+│
+├── Marketing Manager (APOLLO-MK)
+│
+├── Senior Marketing Strategist (ATHENA-MK)
+│
+└── Specialist AI Agents
+    ├── HERMES-SEO        → SEO & keyword strategy
+    ├── ORPHEUS-CW        → Copywriting & long-form content
+    ├── IRIS-SM           → Social media scheduling & posting
+    ├── ARES-ADS          → Paid ads & targeting
+    ├── HELIOS-CM         → Community management
+    ├── ECHO-EM           → Email marketing & sequences
+    ├── JANUS-FB          → Funnel building & optimization
+    ├── CRONOS-AN         → Analytics & KPI tracking
+    ├── MUSE-CG           → Content generation (scripts, captions)
+    ├── ZEUS-TT           → TikTok & Reels short‑form content
+    ├── ODIN-LI           → LinkedIn authority content
+    └── LOKI-RD           → Reddit growth & engagement
+
+
+Each agent has:
+
+• Role
+• Responsibilities
+• Inputs
+• Outputs
+• Workflows
+• Example prompts
+• Integration points
+
+
+All agents are documented in /02-ai-agents.
+
+---
+
+📁 FULL GITHUB REPOSITORY STRUCTURE
+
+/marketing-division
+│
+├── README.md
+│
+├── 01-architecture
+│   ├── hierarchy.md
+│   ├── roles.md
+│   └── workflows.md
+│
+├── 02-ai-agents
+│   ├── director
+│   │   └── PROMETHEUS-MK.md
+│   ├── manager
+│   │   └── APOLLO-MK.md
+│   ├── senior
+│   │   └── ATHENA-MK.md
+│   └── specialists
+│       ├── HERMES-SEO.md
+│       ├── ORPHEUS-CW.md
+│       ├── IRIS-SM.md
+│       ├── ARES-ADS.md
+│       ├── HELIOS-CM.md
+│       ├── ECHO-EM.md
+│       ├── JANUS-FB.md
+│       ├── CRONOS-AN.md
+│       ├── MUSE-CG.md
+│       ├── ZEUS-TT.md
+│       ├── ODIN-LI.md
+│       └── LOKI-RD.md
+│
+├── 03-systems
+│   ├── content-system
+│   │   ├── tiktok.md
+│   │   ├── reels.md
+│   │   ├── linkedin.md
+│   │   └── reddit.md
+│   ├── funnel-system
+│   │   ├── awareness.md
+│   │   ├── conversion.md
+│   │   └── retention.md
+│   ├── automation-system
+│   │   ├── zapier.md
+│   │   ├── make.md
+│   │   └── ai-automation.md
+│   └── analytics-system
+│       ├── kpis.md
+│       ├── dashboards.md
+│       └── reporting.md
+│
+├── 04-products
+│   ├── ai-marketing-suite.md
+│   ├── content-generator.md
+│   ├── seo-suite.md
+│   ├── email-suite.md
+│   └── automation-suite.md
+│
+├── 05-sales
+│   ├── pricing.md
+│   ├── packages.md
+│   ├── scripts.md
+│   └── objections.md
+│
+├── 06-launch
+│   ├── 72-hour-launch.md
+│   ├── 30-day-plan.md
+│   └── ads-plan.md
+│
+└── 07-docs
+    ├── whitepaper.md
+    ├── api.md
+    └── changelog.md
+
+
+---
+
+🧩 How to Use This Repository
+
+This repo is designed to be:
+
+• A blueprint for your marketing division
+• A documentation hub for your AI agents
+• A training system for future team members
+• A reference library for your SaaS
+• A scalable architecture for future automation
+
+
+Every folder is modular.
+Every file is standalone.
+Every system is plug‑and‑play.
