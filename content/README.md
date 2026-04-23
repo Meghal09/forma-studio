@@ -1,47 +1,36 @@
-FORMA Marketing Intelligence Division (FMID)
+# FORMA Marketing Intelligence Division (FMID)
 
-GitHub‑Ready Documentation
+## Overview
+The FORMA Marketing Intelligence Division (FMID) is a modular, AI‑driven marketing system designed to automate and scale:
 
----
+- Content creation
+- Social media growth
+- Lead generation
+- Funnel building
+- SEO
+- Email marketing
+- Paid ads
+- Community management
+- Analytics and reporting
 
-🚀 FORMA Marketing Intelligence Division (FMID)
-
-The FORMA Marketing Intelligence Division is a fully modular, AI‑driven marketing system designed to automate:
-
-• Content creation
-• Social media growth
-• Lead generation
-• Funnel building
-• SEO
-• Email marketing
-• Analytics
-• Paid ads
-• Community management
-
-
-This division powers your AI Marketing SaaS, your agency, and your personal brand, using a structured hierarchy of AI agents and scalable systems.
+This repository contains the full documentation, AI agent hierarchy, systems, and launch frameworks used to operate a complete autonomous marketing division.
 
 ---
 
-🎯 Purpose of This Division
+## Mission
+To build a self‑sustaining marketing engine that:
 
-The FMID exists to:
-
-• Automate 80% of marketing operations
-• Produce content at scale
-• Generate leads daily
-• Convert leads into paying users
-• Maintain consistent brand presence
-• Support your SaaS and agency growth
-• Provide a repeatable, documented marketing engine
-
-
-This README serves as the master index for the entire marketing system.
+- Produces content at scale
+- Generates leads daily
+- Converts leads into paying users
+- Maintains consistent brand presence
+- Supports SaaS and agency growth
+- Automates 80% of marketing operations
+- Operates through coordinated AI agents
 
 ---
 
-🧠 AI ORGANIZATIONAL HIERARCHY
-
+# AI Organizational Hierarchy
 Director (PROMETHEUS-MK)
 │
 ├── Marketing Manager (APOLLO-MK)
@@ -49,37 +38,34 @@ Director (PROMETHEUS-MK)
 ├── Senior Marketing Strategist (ATHENA-MK)
 │
 └── Specialist AI Agents
-    ├── HERMES-SEO        → SEO & keyword strategy
-    ├── ORPHEUS-CW        → Copywriting & long-form content
-    ├── IRIS-SM           → Social media scheduling & posting
-    ├── ARES-ADS          → Paid ads & targeting
+    ├── HERMES-SEO        → SEO and keyword strategy
+    ├── ORPHEUS-CW        → Copywriting and long-form content
+    ├── IRIS-SM           → Social media scheduling and posting
+    ├── ARES-ADS          → Paid ads and targeting
     ├── HELIOS-CM         → Community management
-    ├── ECHO-EM           → Email marketing & sequences
-    ├── JANUS-FB          → Funnel building & optimization
-    ├── CRONOS-AN         → Analytics & KPI tracking
+    ├── ECHO-EM           → Email marketing and sequences
+    ├── JANUS-FB          → Funnel building and optimization
+    ├── CRONOS-AN         → Analytics and KPI tracking
     ├── MUSE-CG           → Content generation (scripts, captions)
-    ├── ZEUS-TT           → TikTok & Reels short‑form content
+    ├── ZEUS-TT           → TikTok and Reels short-form content
     ├── ODIN-LI           → LinkedIn authority content
-    └── LOKI-RD           → Reddit growth & engagement
+    └── LOKI-RD           → Reddit growth and engagement
 
+Each agent includes:
 
-Each agent has:
+- Role  
+- Responsibilities  
+- Inputs  
+- Outputs  
+- Workflows  
+- Example prompts  
+- Integration points  
 
-• Role
-• Responsibilities
-• Inputs
-• Outputs
-• Workflows
-• Example prompts
-• Integration points
-
-
-All agents are documented in /02-ai-agents.
+All agents are documented in `/02-ai-agents`.
 
 ---
 
-📁 FULL GITHUB REPOSITORY STRUCTURE
-
+# Repository Structure
 /marketing-division
 │
 ├── README.md
@@ -152,20 +138,20 @@ All agents are documented in /02-ai-agents.
     ├── api.md
     └── changelog.md
 
-
 ---
 
-🧩 How to Use This Repository
+# How to Use This Repository
 
-This repo is designed to be:
+This repository is designed to be:
 
-• A blueprint for your marketing division
-• A documentation hub for your AI agents
-• A training system for future team members
-• A reference library for your SaaS
-• A scalable architecture for future automation
+- A blueprint for your marketing division  
+- A documentation hub for your AI agents  
+- A training system for future team members  
+- A reference library for your SaaS  
+- A scalable architecture for automation  
 
-
-Every folder is modular.
-Every file is standalone.
+Every folder is modular.  
+Every file is standalone.  
 Every system is plug‑and‑play.
+
+---

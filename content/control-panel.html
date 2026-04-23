@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FORMA Marketing Control Panel</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background:#0b1020; color:#f5f5f5; }
+    header { padding:16px 24px; background:#11162a; border-bottom:1px solid #222842; }
+    h1 { margin:0; font-size:20px; }
+    .layout { display:flex; height:calc(100vh - 60px); }
+    .sidebar { width:260px; border-right:1px solid #222842; padding:16px; box-sizing:border-box; background:#0f1425; }
+    .sidebar h2 { font-size:14px; margin:16px 0 8px; text-transform:uppercase; letter-spacing:.08em; color:#8b93c9; }
+    .sidebar button { width:100%; margin-bottom:6px; padding:8px 10px; border:none; background:#181e35; color:#f5f5f5; text-align:left; cursor:pointer; border-radius:4px; font-size:13px; }
+    .sidebar button:hover { background:#222a46; }
+    .main { flex:1; padding:16px; box-sizing:border-box; display:flex; flex-direction:column; gap:12px; }
+    .section { background:#11162a; border:1px solid #222842; border-radius:6px; padding:12px; }
+    .section h3 { margin-top:0; font-size:15px; }
+    textarea { width:100%; min-height:160px; resize:vertical; background:#050816; color:#f5f5f5; border:1px solid #222842; border-radius:4px; padding:8px; font-family:monospace; font-size:13px; box-sizing:border-box; }
+    .row { display:flex; gap:8px; }
+    .row > * { flex:1; }
+    .pill { display:inline-block; padding:2px 8px; border-radius:999px; background:#222a46; font-size:11px; margin-right:4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FORMA Marketing Control Panel</h1>
+    <div style="font-size:12px;color:#9ca3ff;">AI Division: PROMETHEUS-MK · APOLLO-MK · ATHENA-MK · Specialists</div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Director / Manager</h2>
+      <button onclick="loadPrompt('PROMETHEUS')">PROMETHEUS-MK · Strategy</button>
+      <button onclick="loadPrompt('APOLLO')">APOLLO-MK · Task Routing</button>
+      <button onclick="loadPrompt('ATHENA')">ATHENA-MK · Strategy</button>
+
+      <h2>Content & Growth</h2>
+      <button onclick="loadPrompt('ZEUS')">ZEUS-TT · TikTok/Reels</button>
+      <button onclick="loadPrompt('MUSE')">MUSE-CG · Hooks</button>
+      <button onclick="loadPrompt('ORPHEUS')">ORPHEUS-CW · Copy</button>
+      <button onclick="loadPrompt('IRIS')">IRIS-SM · Scheduling</button>
+
+      <h2>Funnels & Revenue</h2>
+      <button onclick="loadPrompt('JANUS')">JANUS-FB · Funnels</button>
+      <button onclick="loadPrompt('ARES')">ARES-ADS · Ads</button>
+      <button onclick="loadPrompt('ECHO')">ECHO-EM · Email</button>
+
+      <h2>Analytics</h2>
+      <button onclick="loadPrompt('CRONOS')">CRONOS-AN · KPIs</button>
+
+      <h2>Launch</h2>
+      <button onclick="loadPrompt('LAUNCH_72')">72h Launch · Algodesk</button>
+      <button onclick="loadPrompt('LAUNCH_30')">30-Day Plan</button>
+    </aside>
+
+    <main class="main">
+      <div class="section">
+        <h3>Selected Agent / Flow</h3>
+        <div id="meta"></div>
+      </div>
+
+      <div class="section">
+        <h3>Prompt to paste into your AI</h3>
+        <textarea id="promptBox"></textarea>
+      </div>
+
+      <div class="section">
+        <h3>Notes / Output Clipboard</h3>
+        <textarea placeholder="Paste AI outputs here and turn them into tasks, scripts, or assets."></textarea>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const prompts = {
+      PROMETHEUS: {
+        meta: 'Director · 30-day strategy for Algodesk',
+        text: `PROMETHEUS-MK: You are the Director of the FORMA Marketing Intelligence Division.
+
+Goal: Create a 30-day marketing strategy for Algodesk (AI trading SaaS).
+
+Deliver:
+- Core positioning
+- Primary offer
+- Main channels (TikTok, Reels, LinkedIn, Reddit)
+- Content themes per week
+- Funnel overview
+- KPIs to track.`
+      },
+      APOLLO: {
+        meta: 'Manager · Weekly task routing',
+        text: `APOLLO-MK: Based on the current 30-day strategy, create a weekly execution plan.
+
+Include:
+- Tasks for each agent (ZEUS-TT, MUSE-CG, ORPHEUS-CW, IRIS-SM, ARES-ADS, ECHO-EM, JANUS-FB, CRONOS-AN)
+- Deliverables
+- Deadlines
+- Dependencies.`
+      },
+      ATHENA: {
+        meta: 'Strategist · 7-day content plan',
+        text: `ATHENA-MK: Create a 7-day content strategy for Algodesk.
+
+Channels:
+- TikTok
+- Reels
+- LinkedIn
+- Reddit
+
+Deliver:
+- Daily topics
+- Angles
+- Desired outcome (awareness, lead, conversion).`
+      },
+      ZEUS: {
+        meta: 'ZEUS-TT · 10 TikTok scripts',
+        text: `ZEUS-TT: Create 10 TikTok scripts for Algodesk (AI trading SaaS).
+
+Each script:
+- Strong 2-second hook
+- 3–5 punchy lines
+- Clear CTA to visit the link in bio.`
+      },
+      MUSE: {
+        meta: 'MUSE-CG · 20 hooks',
+        text: `MUSE-CG: Generate 20 viral hooks for TikTok/Reels about AI trading and Algodesk.
+
+Mix:
+- Fear of missing out
+- "I wish I knew this earlier"
+- Before/after transformation
+- Hidden truth / myth busting.`
+      },
+      ORPHEUS: {
+        meta: 'ORPHEUS-CW · Landing page copy',
+        text: `ORPHEUS-CW: Write a high-converting landing page for Algodesk.
+
+Sections:
+- Big promise headline
+- Subheadline
+- Problem agitation
+- Solution (Algodesk)
+- Features/benefits
+- Social proof (generic)
+- Pricing section
+- FAQ
+- Final CTA.`
+      },
+      IRIS: {
+        meta: 'IRIS-SM · Posting schedule',
+        text: `IRIS-SM: Create a 7-day posting schedule.
+
+Channels:
+- TikTok (3/day)
+- Reels (2/day)
+- LinkedIn (1/day)
+- Reddit (1 thread/day)
+
+Output as a simple table: Day, Platform, Time, Content type.`
+      },
+      JANUS: {
+        meta: 'JANUS-FB · Funnel outline',
+        text: `JANUS-FB: Design a funnel for Algodesk.
+
+Stages:
+- Awareness (TikTok/Reels/Reddit)
+- Lead capture (landing page + lead magnet)
+- Nurture (email)
+- Conversion (sales page)
+
+Deliver:
+- Page list
+- Flow diagram (text)
+- Key CTAs.`
+      },
+      ARES: {
+        meta: 'ARES-ADS · Ad set',
+        text: `ARES-ADS: Create 5 ad concepts for Algodesk.
+
+For each:
+- Hook line
+- Primary text
+- Headline
+- CTA
+- Targeting idea (interest/lookalike/behavior).`
+      },
+      ECHO: {
+        meta: 'ECHO-EM · 5-email sequence',
+        text: `ECHO-EM: Write a 5-email sequence for new Algodesk leads.
+
+Emails:
+1) Welcome + story
+2) Value (education)
+3) Problem agitation
+4) Offer breakdown
+5) Urgency + FAQ.`
+      },
+      CRONOS: {
+        meta: 'CRONOS-AN · Weekly report',
+        text: `CRONOS-AN: Assume we have 7 days of data for Algodesk.
+
+Create:
+- A sample weekly report structure
+- Sections for content, funnel, email, ads
+- KPIs to track
+- Questions to ask before optimizing.`
+      },
+      LAUNCH_72: {
+        meta: '72h Launch · Execution prompt',
+        text: `PROMPT: Act as the entire FORMA Marketing Division.
+
+Goal: Launch Algodesk in 72 hours.
+
+Deliver:
+- Day 1: Assets needed (pages, emails, content)
+- Day 2: Content production and scheduling
+- Day 3: Launch actions, ads, and optimization checklist.
+
+Output as a clear, actionable checklist.`
+      },
+      LAUNCH_30: {
+        meta: '30-Day Plan · Execution prompt',
+        text: `PROMPT: Create a 30-day growth plan for Algodesk.
+
+Include:
+- Weekly themes
+- Content volume per channel
+- Funnel improvements per week
+- Email campaigns
+- Ads scaling plan.`
+      }
+    };
+
+    function loadPrompt(key) {
+      const p = prompts[key];
+      document.getElementById('meta').innerHTML = `<span class="pill">${key}</span> ${p.meta}`;
+      document.getElementById('promptBox').value = p.text;
+    }
+
+    // default
+    loadPrompt('PROMETHEUS');
+  </script>
+</body>
+</html>
