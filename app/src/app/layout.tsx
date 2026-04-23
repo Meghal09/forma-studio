@@ -1,11 +1,12 @@
 import "./globals.css";
+import type { ReactNode } from "react";
 
 export const metadata = {
   title: "Forma Studio",
   description: "SaaS Control Panel",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-black text-white min-h-screen">
@@ -14,3 +15,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
