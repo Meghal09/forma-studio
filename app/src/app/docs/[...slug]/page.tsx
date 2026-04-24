@@ -5,11 +5,11 @@ import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
 
-export default async function DocPage({ params }: { params: { slug: string[] } }) {
-  const filePath = path.join(process.cwd(), "..", "content", ...params.slug);
+export default async function DocPage({ params }: { params: Promise<{ slug: string[] }> }) {
+  const { slug } = await params;
+  const filePath = path.join(process.cwd(), "..", "content", ...slug);
   const file = fs.readFileSync(filePath, "utf8");
 
-  // If HTML file → render directly
   if (filePath.endsWith(".html")) {
     return (
       <div
@@ -19,7 +19,6 @@ export default async function DocPage({ params }: { params: { slug: string[] } }
     );
   }
 
-  // Markdown or text → convert to HTML
   const parsed = matter(file);
   const processed = await remark().use(gfm).use(html).process(parsed.content);
   const contentHtml = processed.toString();
