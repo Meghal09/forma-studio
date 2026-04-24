@@ -1,12 +1,22 @@
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
 
-const SKIP_DIRS = new Set(["node_modules", ".next", "control-panel"]);
+const ALLOWED_EXTENSIONS = new Set([".md", ".html"]);
+const BLOCKED_DIRS = new Set(["control-panel", "node_modules", ".next"]);
+
+function isAllowedSlug(slug: string[]): boolean {
+  // Block any segment that is a known non-doc directory
+  if (slug.some((segment) => BLOCKED_DIRS.has(segment))) return false;
+  // Block path traversal attempts
+  if (slug.some((segment) => segment === ".." || segment === ".")) return false;
+  return true;
+}
 
 function cleanLabel(name: string): string {
   return name
@@ -18,10 +28,11 @@ function cleanLabel(name: string): string {
 
 function DirectoryListing({ filePath, slug }: { filePath: string; slug: string[] }) {
   const entries = fs.readdirSync(filePath).filter((item) => {
+    if (BLOCKED_DIRS.has(item)) return false;
     const full = path.join(filePath, item);
     const stat = fs.statSync(full);
-    if (stat.isDirectory()) return !SKIP_DIRS.has(item);
-    return item.endsWith(".md") || item.endsWith(".html");
+    if (stat.isDirectory()) return true;
+    return ALLOWED_EXTENSIONS.has(path.extname(item));
   });
 
   const basePath = "/docs/" + slug.join("/");
@@ -52,25 +63,33 @@ function DirectoryListing({ filePath, slug }: { filePath: string; slug: string[]
 
 export default async function DocPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params;
+
+  if (!isAllowedSlug(slug)) notFound();
+
   const filePath = path.join(process.cwd(), "..", "content", ...slug);
+
+  // Ensure the resolved path stays inside content/ (guards against symlink escapes)
+  const contentRoot = path.resolve(process.cwd(), "..", "content");
+  if (!path.resolve(filePath).startsWith(contentRoot + path.sep) &&
+      path.resolve(filePath) !== contentRoot) {
+    notFound();
+  }
 
   let stat: fs.Stats;
   try {
     stat = fs.statSync(filePath);
   } catch {
-    return <p className="text-red-400">Not found: /{slug.join("/")}</p>;
+    notFound();
   }
 
   if (stat.isDirectory()) {
     return <DirectoryListing filePath={filePath} slug={slug} />;
   }
 
-  let file: string;
-  try {
-    file = fs.readFileSync(filePath, "utf8");
-  } catch {
-    return <p className="text-red-400">Could not read file: /{slug.join("/")}</p>;
-  }
+  // Enforce extension allowlist for files
+  if (!ALLOWED_EXTENSIONS.has(path.extname(filePath))) notFound();
+
+  const file = fs.readFileSync(filePath, "utf8");
 
   if (filePath.endsWith(".html")) {
     return (
