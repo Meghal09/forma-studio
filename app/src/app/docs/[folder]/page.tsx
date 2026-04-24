@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 function cleanName(name: string): string {
   return name
@@ -13,11 +14,15 @@ function cleanName(name: string): string {
 export default async function FolderPage({ params }: { params: Promise<{ folder: string }> }) {
   const { folder } = await params;
   const folderPath = path.join(process.cwd(), "..", "content", folder);
-  const stat = fs.statSync(folderPath);
 
-  if (!stat.isDirectory()) {
-    return <p className="text-red-400">Not a directory.</p>;
+  let stat: fs.Stats;
+  try {
+    stat = fs.statSync(folderPath);
+  } catch {
+    notFound();
   }
+
+  if (!stat!.isDirectory()) notFound();
 
   const items = fs.readdirSync(folderPath).filter((item) => {
     const full = path.join(folderPath, item);

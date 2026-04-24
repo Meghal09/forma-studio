@@ -81,7 +81,7 @@ export default function Home() {
       </section>
 
       <footer className="border-t border-gray-800 px-8 py-6 text-center text-xs text-gray-600">
-        © {new Date().getFullYear()} Forma Studio — FMID
+        © 2026 Forma Studio — FMID
       </footer>
     </div>
   );
